@@ -9,7 +9,7 @@ import { FetchApiService } from '../../commom/service/api/fetch-api.service';
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, RouterLink],
   templateUrl: './register.component.html',
-  styleUrl: './login.component.css'
+  styleUrl: './register.component.css'
 })
 export class RegisterComponent {
 

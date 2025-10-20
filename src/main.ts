@@ -3,7 +3,7 @@ import { AppComponent } from './app/app.component';
 import { provideRouter } from '@angular/router';
 import { importProvidersFrom } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http'; // 👈 Thêm dòng này
+import { HttpClientModule } from '@angular/common/http';
 
 import { routes } from './app/app.routes';
 
@@ -12,7 +12,7 @@ bootstrapApplication(AppComponent, {
     provideRouter(routes),
     importProvidersFrom(
       BrowserAnimationsModule,
-      HttpClientModule // 👈 Thêm dòng này
+      HttpClientModule
     )
   ]
 }).catch(err => console.error(err));
