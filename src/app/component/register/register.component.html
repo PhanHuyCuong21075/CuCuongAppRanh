@@ -1,0 +1,36 @@
+<div class="login-container">
+  <div class="login-box">
+    <h2>Tạo tài khoản</h2>
+
+    <form [formGroup]="registerForm" (ngSubmit)="onRegister()">
+      <div class="form-group">
+        <label>Tên đăng nhập</label>
+        <input type="text" formControlName="username" placeholder="Nhập tên đăng nhập">
+      </div>
+
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" formControlName="email" placeholder="Nhập email">
+      </div>
+
+      <div class="form-group">
+        <label>Mật khẩu</label>
+        <input type="password" formControlName="password" placeholder="Nhập mật khẩu">
+      </div>
+
+      <div class="form-group">
+        <label>Xác nhận mật khẩu</label>
+        <input type="password" formControlName="confirmPassword" placeholder="Nhập lại mật khẩu">
+        <div class="error" *ngIf="registerForm.errors?.['mismatch']">Mật khẩu không khớp</div>
+      </div>
+
+      <div class="error" *ngIf="errorMessage">{{ errorMessage }}</div>
+
+      <button type="submit">Đăng ký</button>
+    </form>
+
+    <div class="register-link">
+      Đã có tài khoản? <a routerLink="/login">Đăng nhập</a>
+    </div>
+  </div>
+</div>
