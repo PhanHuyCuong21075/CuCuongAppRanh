@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {FetchApiService} from '../../commom/service/api/fetch-api.service';
 import {CommonModule} from '@angular/common';
-import {RouterLink} from '@angular/router';
+import {Router, RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +16,8 @@ export class LoginComponent {
   loginForm: FormGroup;
 
   constructor(private fb: FormBuilder,
-              private api: FetchApiService) {
+              private api: FetchApiService,
+              private router: Router) {
 
     this.loginForm = this.fb.group({
       username: ['', Validators.required],
@@ -30,11 +31,15 @@ export class LoginComponent {
       this.api.doLogin(this.loginForm.value).subscribe({
         next: res => {
           console.log('Đăng nhập thành công:', res);
-          // ✅ Lưu token và username
-          localStorage.setItem('token', res.token);
-          localStorage.setItem('username', res.username);
-          // ✅ Chuyển hướng sang trang chính
-          window.location.href = '/home'; // hoặc dùng Router
+          const userData = res.data; // 👈 lấy data đúng
+
+          // ✅ Lưu token và username, role
+          localStorage.setItem('token', userData.token);
+          localStorage.setItem('username', userData.username);
+          localStorage.setItem('role', userData.role);
+
+          // ✅ Dùng Router để điều hướng, không reload
+          this.router.navigate(['/home']);
         },
         error: err => {
           console.error('Đăng nhập thất bại:', err);
@@ -43,6 +48,4 @@ export class LoginComponent {
       });
     }
   }
-
-
 }

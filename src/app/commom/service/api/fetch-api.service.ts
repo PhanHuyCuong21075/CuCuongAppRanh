@@ -1,8 +1,9 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable } from "rxjs";
-import {LOGIN_ENDPOINT} from '../../enum/EApiUrl';
+import {HttpClient} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {Observable} from "rxjs";
+import {FRIEND_ENDPOINT, LOGIN_ENDPOINT} from '../../enum/EApiUrl';
 import {environment} from '../../../../environments/environment.dev';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -12,7 +13,9 @@ export class FetchApiService {
 
   constructor(
     private http: HttpClient,
-  ) { }
+  ) {
+  }
+
   get(strUrl: string, param?: any): Observable<any> {
     return this.http.get(strUrl, {
       params: param,
@@ -48,14 +51,24 @@ export class FetchApiService {
 
   doLogin(params: any): Observable<any> {
     const url = `${this.baseUrl}${LOGIN_ENDPOINT.LOGIN}`;
-    return this.http.post(url, params, { responseType: 'json' });
+    return this.http.post(url, params, {responseType: 'json'});
   }
 
 
   doRegister(params: any): Observable<any> {
     const url = `${this.baseUrl}${LOGIN_ENDPOINT.REGISTER}`;
-    return this.http.post(url, params, { responseType: 'json' });
+    return this.http.post(url, params, {responseType: 'json'});
   }
 
+
+  getFriends(username: string): Observable<any> {
+    const url = `${this.baseUrl}${FRIEND_ENDPOINT.GET_FRIENDS}/${username}`;
+    return this.http.get(url, { responseType: 'json' });
+  }
+
+  getSuggestedFriends(username: string): Observable<any> {
+    const url = `${this.baseUrl}${FRIEND_ENDPOINT.SUGGEST_FRIENDS}/${username}`;
+    return this.http.get(url, { responseType: 'json' });
+  }
 
 }
