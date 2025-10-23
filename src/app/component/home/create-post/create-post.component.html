@@ -1,0 +1,11 @@
+<div class="create-post glass-card">
+  <textarea [(ngModel)]="newPostContent" placeholder="Bạn đang nghĩ gì?"></textarea>
+
+  <div class="actions">
+    <label>
+      <input type="checkbox" [(ngModel)]="isPublic" /> Công khai
+    </label>
+
+    <button class="post-btn" (click)="createPost()">Đăng</button>
+  </div>
+</div>

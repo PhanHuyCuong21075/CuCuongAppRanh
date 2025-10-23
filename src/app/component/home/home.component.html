@@ -1,0 +1,15 @@
+<app-header></app-header>
+<div class="home">
+  <div class="sidebar-left">
+    <app-friend-list [friends]="friends"></app-friend-list>
+  </div>
+
+  <div class="feed">
+    <app-create-post (postCreated)="onPostCreated()"></app-create-post>
+    <app-post-list [posts]="posts"></app-post-list>
+  </div>
+
+  <div class="sidebar-right">
+    <app-suggested-friend [suggestedFriends]="suggestedFriends"></app-suggested-friend>
+  </div>
+</div>

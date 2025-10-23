@@ -1,1 +1,228 @@
-/* You can add global styles to this file, and also import other style files */
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+/* ===== Nền tổng ===== */
+.home {
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+  padding: 25px 40px;
+  background: linear-gradient(135deg, #f8f0ff, #fff0f0);
+  min-height: 100vh;
+}
+
+/* ===== Sidebar ===== */
+.sidebar-left,
+.sidebar-right {
+  width: 260px;
+  background: #fff;
+  border-radius: 14px;
+  padding: 18px;
+  box-shadow: 0 3px 12px rgba(150, 50, 200, 0.08);
+  height: fit-content;
+  border: 1px solid rgba(200, 150, 255, 0.2);
+  overflow: hidden;
+}
+
+.sidebar-left h3,
+.sidebar-right h3 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #b455f5, #ff3c3c, #ffae00);
+  color: #fff;
+  font-size: 17px;
+  font-weight: 600;
+  padding: 10px 0;
+  border-radius: 10px;
+  text-align: center;
+  margin-bottom: 14px;
+  word-break: break-word; /* chống tràn */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sidebar-left ul,
+.sidebar-right ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.sidebar-left li,
+.sidebar-right li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #faf7ff;
+  padding: 8px 12px;
+  border-radius: 10px;
+  margin-bottom: 8px;
+  transition: 0.25s;
+  border: 1px solid transparent;
+}
+
+.sidebar-left li:hover,
+.sidebar-right li:hover {
+  background: linear-gradient(135deg, #fff2f2, #f5e6ff);
+  border-color: rgba(132, 20, 182, 0.2);
+  transform: translateX(4px);
+}
+
+/* ===== Cột giữa (Feed chính) ===== */
+.feed {
+  flex: 1;
+  max-width: 620px;
+}
+
+/* --- Create post --- */
+.create-post {
+  background: #fff;
+  border-radius: 14px;
+  padding: 16px;
+  margin-bottom: 22px;
+  box-shadow: 0 3px 12px rgba(132, 20, 182, 0.08);
+  border: 1px solid rgba(132, 20, 182, 0.1);
+}
+
+.create-post textarea {
+  width: 100%;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 12px;
+  resize: none;
+  font-size: 15px;
+  outline: none;
+  transition: 0.25s;
+  background: #fafafa;
+}
+
+.create-post textarea:focus {
+  border-color: #b455f5;
+  background: #fff;
+  box-shadow: 0 0 4px rgba(180, 85, 245, 0.2);
+}
+
+.actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 12px;
+}
+
+.actions label {
+  font-size: 14px;
+  color: #666;
+}
+
+.actions input[type="checkbox"] {
+  margin-right: 6px;
+  transform: scale(1.2);
+}
+
+.post-btn {
+  background: linear-gradient(135deg, #b455f5, #ff3c3c, #ffae00);
+  border: none;
+  color: white;
+  padding: 8px 18px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: 0.3s;
+  box-shadow: 0 3px 8px rgba(255, 70, 70, 0.25);
+}
+
+.post-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 5px 14px rgba(255, 70, 70, 0.35);
+}
+
+/* --- Danh sách bài viết --- */
+.post-list {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.post {
+  background: #fff;
+  border-radius: 14px;
+  padding: 15px;
+  box-shadow: 0 3px 10px rgba(132, 20, 182, 0.08);
+  border: 1px solid rgba(132, 20, 182, 0.1);
+}
+
+.post-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.post-header i {
+  margin-right: 10px;
+  color: #b455f5;
+}
+
+.post-header strong {
+  color: #222;
+  font-size: 15px;
+}
+
+.post-time {
+  font-size: 13px;
+  color: #999;
+  margin-left: 8px;
+}
+
+.post-content {
+  margin: 10px 0;
+  font-size: 15px;
+  color: #333;
+  line-height: 1.6;
+}
+
+.post-actions {
+  display: flex;
+  gap: 15px;
+  border-top: 1px solid #eee;
+  padding-top: 8px;
+  margin-top: 8px;
+}
+
+.post-actions button {
+  background: none;
+  border: none;
+  color: #b455f5;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.25s;
+}
+
+.post-actions button:hover {
+  color: #ff3c3c;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 1024px) {
+  .home {
+    flex-direction: column;
+    align-items: center;
+    padding: 15px;
+  }
+
+  .sidebar-left,
+  .sidebar-right {
+    display: none;
+  }
+
+  .feed {
+    width: 100%;
+    max-width: 100%;
+  }
+}

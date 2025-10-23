@@ -1,0 +1,20 @@
+<div class="post-list">
+  <div *ngFor="let post of posts" class="post glass-card">
+    <div class="post-header">
+      <i class="fa-solid fa-user-circle"></i>
+      <div class="post-info">
+        <p class="author">{{ post.author }}</p>
+        <p class="post-time">{{ post.time }}</p>
+      </div>
+    </div>
+
+    <div class="post-content">
+      {{ post.content }}
+    </div>
+
+    <div class="post-actions">
+      <button><i class="fa-regular fa-thumbs-up"></i> Thích</button>
+      <button><i class="fa-regular fa-comment"></i> Bình luận</button>
+    </div>
+  </div>
+</div>

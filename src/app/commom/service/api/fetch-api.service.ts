@@ -1,7 +1,7 @@
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Observable} from "rxjs";
-import {FRIEND_ENDPOINT, LOGIN_ENDPOINT} from '../../enum/EApiUrl';
+import {FRIEND_ENDPOINT, LOGIN_ENDPOINT, POST_ENDPOINT} from '../../enum/EApiUrl';
 import {environment} from '../../../../environments/environment.dev';
 
 @Injectable({
@@ -69,6 +69,17 @@ export class FetchApiService {
   getSuggestedFriends(username: string): Observable<any> {
     const url = `${this.baseUrl}${FRIEND_ENDPOINT.SUGGEST_FRIENDS}/${username}`;
     return this.http.get(url, { responseType: 'json' });
+  }
+
+  createPost(params: any): Observable<any> {
+    const url = `${this.baseUrl}${POST_ENDPOINT.CREATE}`;
+    return this.http.post(url, params, {responseType: 'json'});
+  }
+
+  getPosts(username: string): Observable<any> {
+    const url = `${this.baseUrl}${POST_ENDPOINT.GET_ALL}`;
+    const body = { username: username };
+    return this.http.post(url, body, { responseType: 'json' });
   }
 
 }
