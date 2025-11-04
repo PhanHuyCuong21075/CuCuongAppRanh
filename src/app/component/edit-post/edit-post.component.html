@@ -1,0 +1,13 @@
+<div class="modal-backdrop" *ngIf="showModal">
+  <div class="modal">
+    <h3>Chỉnh sửa bài viết</h3>
+
+    <textarea [(ngModel)]="editedContent" placeholder="Nội dung bài viết"></textarea>
+    <input type="text" [(ngModel)]="editedImageUrl" placeholder="Đường dẫn ảnh (tùy chọn)" />
+
+    <div class="modal-actions">
+      <button (click)="close()">Hủy</button>
+      <button (click)="save()">Lưu</button>
+    </div>
+  </div>
+</div>
