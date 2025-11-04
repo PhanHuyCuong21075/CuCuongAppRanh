@@ -18,4 +18,4 @@ bootstrapApplication(AppComponent, {
     importProvidersFrom(HttpClientModule, BrowserAnimationsModule),
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ]
-}).catch(err => console.error(err));
+}).catch(err => console.error({err: err}));

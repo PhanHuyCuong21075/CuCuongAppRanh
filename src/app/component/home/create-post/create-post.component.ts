@@ -34,7 +34,7 @@ export class CreatePostComponent {
         this.newPostContent = '';
         this.postCreated.emit(); // báo cho cha reload danh sách
       },
-      error: (err) => console.error('❌ Lỗi khi đăng bài:', err)
+      error: (err) => console.error({err: '❌ Lỗi khi đăng bài:'}, err)
     });
   }
 }

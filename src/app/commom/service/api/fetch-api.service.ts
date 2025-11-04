@@ -1,7 +1,7 @@
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Observable} from "rxjs";
-import {FRIEND_ENDPOINT, LOGIN_ENDPOINT, POST_ENDPOINT} from '../../enum/EApiUrl';
+import {FRIEND_ENDPOINT, LOGIN_ENDPOINT, POST_ENDPOINT, ROLE_ENDPOINT} from '../../enum/EApiUrl';
 import {environment} from '../../../../environments/environment.dev';
 
 @Injectable({
@@ -53,7 +53,9 @@ export class FetchApiService {
     const url = `${this.baseUrl}${LOGIN_ENDPOINT.LOGIN}`;
     return this.http.post(url, params, {responseType: 'json'});
   }
-
+  getRoles() {
+    return this.http.get(`${this.baseUrl}${ROLE_ENDPOINT.GET_ROLES}`);
+  }
 
   doRegister(params: any): Observable<any> {
     const url = `${this.baseUrl}${LOGIN_ENDPOINT.REGISTER}`;
@@ -80,6 +82,16 @@ export class FetchApiService {
     const url = `${this.baseUrl}${POST_ENDPOINT.GET_ALL}`;
     const body = { username: username };
     return this.http.post(url, body, { responseType: 'json' });
+  }
+
+  deletePost(id: number): Observable<any> {
+    const url = `${this.baseUrl}${POST_ENDPOINT.DELETE}/${id}`;
+    return this.http.delete(url, { responseType: 'json' });
+  }
+
+  updatePost(id: number, postData: any): Observable<any> {
+    const url = `${this.baseUrl}${POST_ENDPOINT.UPDATE}/${id}`;
+    return this.http.put(url, postData, { responseType: 'json' });
   }
 
 }

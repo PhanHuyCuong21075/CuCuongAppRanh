@@ -16,7 +16,7 @@ export class LoadingService {
     if (this.requests === 1) {
       // debounce tránh flicker
       this.showTimeout = setTimeout(() => {
-        this._loading.next(true);
+        this._loading.next();
       }, delay);
     }
   }
@@ -27,7 +27,7 @@ export class LoadingService {
     }
     if (this.requests === 0) {
       clearTimeout(this.showTimeout);
-      this._loading.next(false);
+      this._loading.next();
     }
   }
 }

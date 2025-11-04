@@ -3,6 +3,7 @@
     <h2>Tạo tài khoản</h2>
 
     <form [formGroup]="registerForm" (ngSubmit)="onRegister()">
+
       <div class="form-group">
         <label>Tên đăng nhập</label>
         <input type="text" formControlName="username" placeholder="Nhập tên đăng nhập">
@@ -21,7 +22,17 @@
       <div class="form-group">
         <label>Xác nhận mật khẩu</label>
         <input type="password" formControlName="confirmPassword" placeholder="Nhập lại mật khẩu">
-        <div class="error" *ngIf="registerForm.errors?.['mismatch']">Mật khẩu không khớp</div>
+        <div class="error" *ngIf="registerForm.errors?.['mismatch']">
+          ⚠️ Mật khẩu không khớp
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Chọn vai trò</label>
+        <select formControlName="roleCode">
+          <option value="">-- Chọn vai trò --</option>
+          <option *ngFor="let r of roles" [value]="r.roleCode">{{ r.roleName }}</option>
+        </select>
       </div>
 
       <div class="error" *ngIf="errorMessage">{{ errorMessage }}</div>

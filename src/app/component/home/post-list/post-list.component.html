@@ -1,20 +1,51 @@
+<!-- Component chỉnh sửa bài viết (ẩn modal) -->
+<app-edit-post #editPostComp (updated)="onPostUpdated($event)"></app-edit-post>
+
 <div class="post-list">
   <div *ngFor="let post of posts" class="post glass-card">
+
+    <!-- Header: avatar + tên tác giả + menu ba chấm -->
     <div class="post-header">
-      <i class="fa-solid fa-user-circle"></i>
-      <div class="post-info">
-        <p class="author">{{ post.author }}</p>
-        <p class="post-time">{{ post.time }}</p>
+      <!-- Avatar + thông tin tác giả -->
+      <div class="post-user-info">
+        <i class="fa-solid fa-user-circle avatar"></i>
+        <div class="post-info">
+          <p class="author">{{ post.author }}</p>
+          <p class="post-time">{{ post.time }}</p>
+        </div>
+      </div>
+
+      <!-- Menu ba chấm góc phải -->
+      <div class="post-menu" (click)="toggleMenu(post)">
+        <i class="fa-solid fa-ellipsis-vertical"></i>
+        <div class="menu-dropdown" *ngIf="post.showMenu">
+          <!-- Gọi component edit-post khi bấm sửa -->
+          <button (click)="editPostComp.open(post)">
+            <i class="fa-solid fa-pen"></i> Chỉnh sửa
+          </button>
+          <button (click)="deletePost(post)">
+            <i class="fa-solid fa-trash"></i> Xóa
+          </button>
+        </div>
       </div>
     </div>
 
+    <!-- Nội dung bài viết -->
     <div class="post-content">
       {{ post.content }}
     </div>
 
+    <!-- Nút tương tác -->
     <div class="post-actions">
-      <button><i class="fa-regular fa-thumbs-up"></i> Thích</button>
-      <button><i class="fa-regular fa-comment"></i> Bình luận</button>
+      <button class="like-btn">
+        <i class="fa-regular fa-thumbs-up"></i> Thích
+      </button>
+      <button class="comment-btn">
+        <i class="fa-regular fa-comment"></i> Bình luận
+      </button>
+      <button class="share-btn">
+        <i class="fa-solid fa-share"></i> Chia sẻ
+      </button>
     </div>
   </div>
 </div>

@@ -35,7 +35,10 @@
         </div>
       </div>
 
-      <button type="submit" [disabled]="loginForm.invalid">Đăng nhập</button>
+      <button type="submit" [disabled]="loginForm.invalid || isLoading">
+        {{ isLoading ? 'Đang đăng nhập...' : 'Đăng nhập' }}
+      </button>
+
     </form>
 
     <div class="register-link">

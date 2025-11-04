@@ -8,7 +8,15 @@ export enum FRIEND_ENDPOINT {
   SUGGEST_FRIENDS = 'friends/suggest',
 }
 
+
+export enum ROLE_ENDPOINT {
+  GET_ROLES = 'role/list',
+}
+
 export enum POST_ENDPOINT {
   CREATE = 'posts/create',
   GET_ALL='posts/get-all',
+  DELETE = 'posts/delete',
+  UPDATE = 'posts/update',
+
 }

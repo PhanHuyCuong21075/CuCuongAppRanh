@@ -42,21 +42,21 @@ export class HomeComponent implements OnInit {
   loadFriends() {
     this.api.getFriends(this.username).subscribe({
       next: res => this.friends = res.data || res,
-      error: err => console.error(err)
+      error: err => console.error({err: err})
     });
   }
 
   loadPosts() {
     this.api.getPosts(this.username).subscribe({
       next: res => this.posts = res.data || res,
-      error: err => console.error(err)
+      error: err => console.error({err: err})
     });
   }
 
   loadSuggestedFriends() {
     this.api.getSuggestedFriends(this.username).subscribe({
       next: res => this.suggestedFriends = res.data || res,
-      error: err => console.error(err)
+      error: err => console.error({err: err})
     });
   }
 
