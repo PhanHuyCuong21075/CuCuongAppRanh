@@ -15,6 +15,7 @@ export class RegisterComponent implements OnInit {
 
   registerForm: FormGroup;
   errorMessage: string = '';
+  isRoleDisabled: boolean = false;
   roles: any[] = []; // Danh sách vai trò từ API
 
   constructor(
@@ -28,7 +29,7 @@ export class RegisterComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
       confirmPassword: ['', Validators.required],
-      roleCode: ['', Validators.required] // ✅ Thêm trường chọn role
+      roleCode: ['', Validators.required]
     }, { validators: this.passwordsMatch });
   }
 
@@ -42,13 +43,24 @@ export class RegisterComponent implements OnInit {
     this.api.getRoles().subscribe({
       next: (res: any) => {
         this.roles = res.data || [];
+
+        // ✅ Sau khi roles load xong, set mặc định
+        const defaultRole = this.roles.find(r => r.code === "USER");
+        if (defaultRole) {
+          this.registerForm.get('roleCode')?.setValue(defaultRole.code);
+          this.isRoleDisabled = false;
+        } else {
+          this.isRoleDisabled = true;
+        }
       },
       error: err => {
         console.error('❌ Lỗi khi tải danh sách vai trò:', err);
         this.roles = [];
+        this.isRoleDisabled = true;
       }
     });
   }
+
 
   // ✅ Custom validator kiểm tra mật khẩu khớp nhau
   passwordsMatch(form: FormGroup) {
@@ -86,4 +98,5 @@ export class RegisterComponent implements OnInit {
       }
     });
   }
+
 }

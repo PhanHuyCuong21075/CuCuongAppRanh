@@ -126,3 +126,46 @@ button:hover {
     padding: 30px 25px;
   }
 }
+
+
+/* Style cho select vai trò */
+select[formControlName="roleCode"] {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1.5px solid rgba(255, 255, 255, 0.4);
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.25); /* nền sẫm để chữ trắng nổi bật */
+  color: white;
+  font-size: 15px;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+/* Placeholder màu nhạt */
+select[formControlName="roleCode"] option[value=""] {
+  color: #dcdde1;
+}
+
+/* Hover / focus */
+select[formControlName="roleCode"]:focus {
+  border-color: #a29bfe;
+  box-shadow: 0 0 8px rgba(162, 155, 254, 0.5);
+  outline: none;
+}
+
+/* Mũi tên tùy chỉnh */
+select[formControlName="roleCode"] {
+  background-image: url("data:image/svg+xml,%3Csvg fill='white' height='16' viewBox='0 0 24 24' width='16' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3Cpath d='M0 0h24v24H0z' fill='none'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 16px;
+}
+
+/* Chọn option */
+select[formControlName="roleCode"] option {
+  background: rgba(0, 0, 0, 0.7); /* nền đen mờ khi mở dropdown */
+  color: white;
+}

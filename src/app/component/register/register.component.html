@@ -29,11 +29,11 @@
 
       <div class="form-group">
         <label>Chọn vai trò</label>
-        <select formControlName="roleCode">
-          <option value="">-- Chọn vai trò --</option>
-          <option *ngFor="let r of roles" [value]="r.roleCode">{{ r.roleName }}</option>
+        <select formControlName="roleCode" [disabled]="isRoleDisabled">
+          <option *ngFor="let r of roles" [value]="r.code">{{ r.name }}</option>
         </select>
       </div>
+
 
       <div class="error" *ngIf="errorMessage">{{ errorMessage }}</div>
 
