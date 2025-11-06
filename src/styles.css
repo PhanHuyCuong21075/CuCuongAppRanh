@@ -1,32 +1,86 @@
+/* ===== 1. IMPORT FONT & BIẾN CSS (CSS VARIABLES) ===== */
 @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css");
 
+:root {
+  /* Fonts */
+  --font-family-main: "Poppins", sans-serif;
+
+  /* Colors */
+  --clr-white: #fff;
+  --clr-text-dark: #222;
+  --clr-text-light: #333;
+  --clr-text-muted: #666;
+  --clr-text-placeholder: #999;
+  --clr-border: #ddd;
+  --clr-border-light: #eee;
+  --clr-border-trans-light: rgba(132, 20, 182, 0.1);
+  --clr-border-trans-purple: rgba(132, 20, 182, 0.2);
+  --clr-bg-light: #fafafa;
+  --clr-bg-sidebar-item: #faf7ff;
+
+  /* Gradients */
+  --gradient-main: linear-gradient(135deg, #b455f5, #ff3c3c, #ffae00);
+  --gradient-bg-page: linear-gradient(135deg, #f8f0ff, #fff0f0);
+  --gradient-hover-light: linear-gradient(135deg, #fff2f2, #f5e6ff);
+
+  /* Sizing & Spacing */
+  --radius-main: 14px; /* bo góc cho card, sidebar */
+  --radius-sub: 10px;  /* bo góc cho các phần tử bên trong */
+  --spacing-sm: 8px;
+  --spacing-md: 12px;
+  --spacing-lg: 16px;
+  --spacing-xl: 18px;
+  --spacing-xxl: 25px;
+
+  /* Shadows */
+  --shadow-main: 0 3px 12px rgba(132, 20, 182, 0.08);
+  --shadow-btn: 0 3px 8px rgba(255, 70, 70, 0.25);
+  --shadow-btn-hover: 0 5px 14px rgba(255, 70, 70, 0.35);
+}
+
+/* ===== 2. GLOBAL RESET (Sửa lỗi xung đột font) ===== */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Poppins", sans-serif;
 }
 
-/* ===== Nền tổng ===== */
+html {
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--font-family-main);
+  min-height: 100vh;
+  line-height: 1.6;
+  /* Nền trang được đặt ở .home, body có thể để màu fallback */
+  background-color: #f8f0ff;
+}
+
+ul {
+  list-style: none; /* Bỏ list-style ở đây, không cần lặp lại ở sidebar */
+}
+
+/* ===== 3. NỀN TỔNG (LAYOUT) ===== */
 .home {
   display: flex;
   justify-content: center;
-  gap: 25px;
-  padding: 25px 40px;
-  background: linear-gradient(135deg, #f8f0ff, #fff0f0);
+  gap: var(--spacing-xxl);
+  padding: var(--spacing-xxl) 40px;
+  background: var(--gradient-bg-page);
   min-height: 100vh;
 }
 
-/* ===== Sidebar ===== */
+/* ===== 4. SIDEBAR (Đã gom nhóm) ===== */
 .sidebar-left,
 .sidebar-right {
   width: 260px;
-  background: #fff;
-  border-radius: 14px;
-  padding: 18px;
-  box-shadow: 0 3px 12px rgba(150, 50, 200, 0.08);
+  background: var(--clr-white);
+  border-radius: var(--radius-main);
+  padding: var(--spacing-xl);
+  box-shadow: var(--shadow-main);
   height: fit-content;
-  border: 1px solid rgba(200, 150, 255, 0.2);
+  border: 1px solid var(--clr-border-trans-light);
   overflow: hidden;
 }
 
@@ -35,24 +89,18 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #b455f5, #ff3c3c, #ffae00);
-  color: #fff;
+  background: var(--gradient-main);
+  color: var(--clr-white);
   font-size: 17px;
   font-weight: 600;
   padding: 10px 0;
-  border-radius: 10px;
+  border-radius: var(--radius-sub);
   text-align: center;
   margin-bottom: 14px;
-  word-break: break-word; /* chống tràn */
+  word-break: break-word;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-}
-
-.sidebar-left ul,
-.sidebar-right ul {
-  list-style: none;
-  padding-left: 0;
 }
 
 .sidebar-left li,
@@ -60,22 +108,22 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: #faf7ff;
-  padding: 8px 12px;
-  border-radius: 10px;
-  margin-bottom: 8px;
+  background: var(--clr-bg-sidebar-item);
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--radius-sub);
+  margin-bottom: var(--spacing-sm);
   transition: 0.25s;
   border: 1px solid transparent;
 }
 
 .sidebar-left li:hover,
 .sidebar-right li:hover {
-  background: linear-gradient(135deg, #fff2f2, #f5e6ff);
-  border-color: rgba(132, 20, 182, 0.2);
+  background: var(--gradient-hover-light);
+  border-color: var(--clr-border-trans-purple);
   transform: translateX(4px);
 }
 
-/* ===== Cột giữa (Feed chính) ===== */
+/* ===== 5. CỘT GIỮA (FEED CHÍNH) ===== */
 .feed {
   flex: 1;
   max-width: 620px;
@@ -83,29 +131,29 @@
 
 /* --- Create post --- */
 .create-post {
-  background: #fff;
-  border-radius: 14px;
-  padding: 16px;
-  margin-bottom: 22px;
-  box-shadow: 0 3px 12px rgba(132, 20, 182, 0.08);
-  border: 1px solid rgba(132, 20, 182, 0.1);
+  background: var(--clr-white);
+  border-radius: var(--radius-main);
+  padding: var(--spacing-lg);
+  margin-bottom: 22px; /* Có thể dùng var(--spacing-xxl) */
+  box-shadow: var(--shadow-main);
+  border: 1px solid var(--clr-border-trans-light);
 }
 
 .create-post textarea {
   width: 100%;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  padding: 12px;
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-sub);
+  padding: var(--spacing-md);
   resize: none;
   font-size: 15px;
   outline: none;
   transition: 0.25s;
-  background: #fafafa;
+  background: var(--clr-bg-light);
 }
 
 .create-post textarea:focus {
-  border-color: #b455f5;
-  background: #fff;
+  border-color: var(--gradient-main); /* Lấy màu #b455f5 */
+  background: var(--clr-white);
   box-shadow: 0 0 4px rgba(180, 85, 245, 0.2);
 }
 
@@ -113,12 +161,12 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 12px;
+  margin-top: var(--spacing-md);
 }
 
 .actions label {
   font-size: 14px;
-  color: #666;
+  color: var(--clr-text-muted);
 }
 
 .actions input[type="checkbox"] {
@@ -127,98 +175,97 @@
 }
 
 .post-btn {
-  background: linear-gradient(135deg, #b455f5, #ff3c3c, #ffae00);
+  background: var(--gradient-main);
   border: none;
   color: white;
-  padding: 8px 18px;
-  border-radius: 10px;
+  padding: var(--spacing-sm) var(--spacing-xl);
+  border-radius: var(--radius-sub);
   cursor: pointer;
   font-weight: 500;
   transition: 0.3s;
-  box-shadow: 0 3px 8px rgba(255, 70, 70, 0.25);
+  box-shadow: var(--shadow-btn);
 }
 
 .post-btn:hover {
   transform: scale(1.05);
-  box-shadow: 0 5px 14px rgba(255, 70, 70, 0.35);
+  box-shadow: var(--shadow-btn-hover);
 }
 
 /* --- Danh sách bài viết --- */
 .post-list {
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: var(--spacing-xl);
 }
 
 .post {
-  background: #fff;
-  border-radius: 14px;
-  padding: 15px;
-  box-shadow: 0 3px 10px rgba(132, 20, 182, 0.08);
-  border: 1px solid rgba(132, 20, 182, 0.1);
+  background: var(--clr-white);
+  border-radius: var(--radius-main);
+  padding: 15px; /* Giữ nguyên 15px hoặc đổi sang var(--spacing-lg) 16px */
+  box-shadow: var(--shadow-main);
+  border: 1px solid var(--clr-border-trans-light);
 }
 
 .post-header {
   display: flex;
   align-items: center;
-  margin-bottom: 8px;
+  margin-bottom: var(--spacing-sm);
 }
 
 .post-header i {
   margin-right: 10px;
-  color: #b455f5;
+  color: #b455f5; /* var(--clr-primary) nếu định nghĩa */
 }
 
 .post-header strong {
-  color: #222;
+  color: var(--clr-text-dark);
   font-size: 15px;
 }
 
 .post-time {
   font-size: 13px;
-  color: #999;
-  margin-left: 8px;
+  color: var(--clr-text-placeholder);
+  margin-left: var(--spacing-sm);
 }
 
 .post-content {
   margin: 10px 0;
   font-size: 15px;
-  color: #333;
-  line-height: 1.6;
+  color: var(--clr-text-light);
 }
 
 .post-actions {
   display: flex;
   gap: 15px;
-  border-top: 1px solid #eee;
-  padding-top: 8px;
-  margin-top: 8px;
+  border-top: 1px solid var(--clr-border-light);
+  padding-top: var(--spacing-sm);
+  margin-top: var(--spacing-sm);
 }
 
 .post-actions button {
   background: none;
   border: none;
-  color: #b455f5;
+  color: #b455f5; /* var(--clr-primary) */
   font-weight: 500;
   cursor: pointer;
   transition: 0.25s;
 }
 
 .post-actions button:hover {
-  color: #ff3c3c;
+  color: #ff3c3c; /* var(--clr-secondary) */
 }
 
-/* ===== Responsive ===== */
+/* ===== 6. RESPONSIVE ===== */
 @media (max-width: 1024px) {
   .home {
     flex-direction: column;
     align-items: center;
-    padding: 15px;
+    padding: var(--spacing-lg); /* Giảm padding trên mobile */
   }
 
   .sidebar-left,
   .sidebar-right {
-    display: none;
+    display: none; /* Giữ nguyên logic ẩn sidebar */
   }
 
   .feed {
@@ -226,6 +273,3 @@
     max-width: 100%;
   }
 }
-
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
