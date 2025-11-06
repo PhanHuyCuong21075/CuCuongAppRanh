@@ -14,7 +14,7 @@
   --clr-border: #ddd;
   --clr-border-light: #eee;
   --clr-border-trans-light: rgba(132, 20, 182, 0.1);
-  --clr-border-trans-purple: rgba(132, 20, 182, 0.2);
+  --clr-border-trans-purple: rgb(255, 174, 0);
   --clr-bg-light: #fafafa;
   --clr-bg-sidebar-item: #faf7ff;
 

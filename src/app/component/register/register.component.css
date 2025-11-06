@@ -10,10 +10,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  min-height: 100vh; /* [SỬA 1] Đổi từ height sang min-height */
+  padding: 20px 0; /* [SỬA 2] Thêm padding cho an toàn trên màn hình thấp */
   background: radial-gradient(circle at top left, #5f0a87, #a4508b);
   font-family: 'Poppins', sans-serif;
-  overflow: hidden; /* Ngăn tràn ra ngoài */
+  overflow: hidden;
 }
 
 /* Hộp login */
@@ -28,7 +29,8 @@
   border: 1px solid rgba(255, 255, 255, 0.25);
   color: white;
   transition: all 0.3s ease;
-  overflow: hidden;
+  overflow-y: auto; /* [SỬA 3] Thêm thanh cuộn DỌC khi cần */
+  max-height: 90vh; /* Giới hạn chiều cao của hộp */
 }
 
 h2 {
@@ -54,6 +56,7 @@ label {
   display: block;
 }
 
+/* ----- GIỮ NGUYÊN CSS GỐC CỦA BẠN TỪ ĐÂY ----- */
 input {
   width: 100%;
   padding: 12px 15px;
@@ -124,12 +127,13 @@ button:hover {
   .login-box {
     width: 90%;
     padding: 30px 25px;
+    max-height: 95vh; /* [SỬA 4] Cho phép hộp cao hơn 1 chút trên mobile */
   }
 }
 
 
 /* Style cho select vai trò */
-select[formControlName="roleCode"] {
+select[formControlName="roleCode"],select[formControlName="gender"] {
   width: 100%;
   padding: 12px 15px;
   border: 1.5px solid rgba(255, 255, 255, 0.4);
@@ -145,19 +149,19 @@ select[formControlName="roleCode"] {
 }
 
 /* Placeholder màu nhạt */
-select[formControlName="roleCode"] option[value=""] {
+select[formControlName="roleCode"],select[formControlName="gender"] option[value=""] {
   color: #dcdde1;
 }
 
 /* Hover / focus */
-select[formControlName="roleCode"]:focus {
+select[formControlName="roleCode"],select[formControlName="gender"]:focus {
   border-color: #a29bfe;
   box-shadow: 0 0 8px rgba(162, 155, 254, 0.5);
   outline: none;
 }
 
 /* Mũi tên tùy chỉnh */
-select[formControlName="roleCode"] {
+select[formControlName="roleCode"],select[formControlName="gender"] {
   background-image: url("data:image/svg+xml,%3Csvg fill='white' height='16' viewBox='0 0 24 24' width='16' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3Cpath d='M0 0h24v24H0z' fill='none'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 12px center;
@@ -165,7 +169,7 @@ select[formControlName="roleCode"] {
 }
 
 /* Chọn option */
-select[formControlName="roleCode"] option {
+select[formControlName="roleCode"],select[formControlName="gender"] option {
   background: rgba(0, 0, 0, 0.7); /* nền đen mờ khi mở dropdown */
   color: white;
 }

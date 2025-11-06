@@ -5,6 +5,11 @@
     <form [formGroup]="registerForm" (ngSubmit)="onRegister()">
 
       <div class="form-group">
+        <label>Họ và tên</label>
+        <input type="text" formControlName="fullName" placeholder="Nhập họ tên đầy đủ">
+      </div>
+
+      <div class="form-group">
         <label>Tên đăng nhập</label>
         <input type="text" formControlName="username" placeholder="Nhập tên đăng nhập">
       </div>
@@ -12,6 +17,21 @@
       <div class="form-group">
         <label>Email</label>
         <input type="email" formControlName="email" placeholder="Nhập email">
+      </div>
+
+      <div class="form-group">
+        <label>Số điện thoại</label>
+        <input type="tel" formControlName="phone" placeholder="Nhập số điện thoại">
+      </div>
+
+      <div class="form-group">
+        <label>Giới tính</label>
+        <select formControlName="gender">
+          <option value="" disabled selected>-- Chọn giới tính --</option>
+          <option value="Nam">Nam</option>
+          <option value="Nữ">Nữ</option>
+          <option value="Khác">Khác</option>
+        </select>
       </div>
 
       <div class="form-group">
@@ -28,12 +48,16 @@
       </div>
 
       <div class="form-group">
+        <label>Ảnh đại diện (URL)</label>
+        <input type="text" formControlName="filePathAvatar" placeholder="Nhập đường dẫn URL ảnh (nếu có)">
+      </div>
+
+      <div class="form-group">
         <label>Chọn vai trò</label>
         <select formControlName="roleCode" [disabled]="isRoleDisabled">
           <option *ngFor="let r of roles" [value]="r.code">{{ r.name }}</option>
         </select>
       </div>
-
 
       <div class="error" *ngIf="errorMessage">{{ errorMessage }}</div>
 

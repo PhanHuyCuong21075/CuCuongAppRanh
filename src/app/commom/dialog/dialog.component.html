@@ -1,0 +1,19 @@
+<div class="dialog-container" [ngClass]="data.type">
+  <span class="dialog-icon">
+    {{ data.icon }}
+  </span>
+
+  <h2 class="dialog-title">{{ title }}</h2>
+  <p class="dialog-message">{{ message }}</p>
+
+  <div class="dialog-actions">
+    <button class="dialog-btn btn-cancel" (click)="close()">Oke</button>
+    <button
+      *ngIf="showConfirm"
+      class="dialog-btn btn-confirm"
+      (click)="doConfirm()"
+    >
+      Đồng ý
+    </button>
+  </div>
+</div>

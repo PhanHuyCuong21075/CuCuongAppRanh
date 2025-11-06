@@ -27,6 +27,12 @@ export class RegisterComponent implements OnInit {
   ) {
     // ✅ Khởi tạo form với các field và validate
     this.registerForm = this.fb.group({
+      // --- CÁC TRƯỜNG BỔ SUNG ---
+      fullName: ['', Validators.required],
+      phone: ['', Validators.required], // Bạn có thể thêm Validators.pattern(/regex-cho-sdt/) nếu muốn
+      gender: ['', Validators.required], // Dropdown đã có option rỗng nên .required sẽ hoạt động
+      filePathAvatar: [''], // Ảnh đại diện (URL) là không bắt buộc (optional)
+      // --- CÁC TRƯỜNG GỐC ---
       username: ['', [Validators.required, Validators.minLength(4)]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
@@ -75,11 +81,20 @@ export class RegisterComponent implements OnInit {
   onRegister() {
     if (this.registerForm.invalid) {
       this.errorMessage = '⚠️ Vui lòng kiểm tra lại thông tin!';
+      // In ra console để debug lỗi validate
+      console.error('Form không hợp lệ:', this.registerForm.errors, this.registerForm.controls);
       return;
     }
 
-    // Payload gửi sang backend
+    // Payload gửi sang backend (ĐÃ BỔ SUNG)
     const payload = {
+      // --- CÁC TRƯỜNG BỔ SUNG ---
+      fullName: this.registerForm.value.fullName?.trim(),
+      phone: this.registerForm.value.phone?.trim(),
+      gender: this.registerForm.value.gender, // Không cần trim() vì là select
+      filePathAvatar: this.registerForm.value.filePathAvatar?.trim(),
+
+      // --- CÁC TRƯỜNG GỐC ---
       username: this.registerForm.value.username?.trim(),
       email: this.registerForm.value.email?.trim(),
       password: this.registerForm.value.password,
@@ -87,6 +102,8 @@ export class RegisterComponent implements OnInit {
       roleCode: this.registerForm.value.roleCode
     };
 
+    // Log payload ra để kiểm tra
+    console.log('Sending payload:', payload);
 
     this.api.doRegister(payload).subscribe({
       next: res => {
