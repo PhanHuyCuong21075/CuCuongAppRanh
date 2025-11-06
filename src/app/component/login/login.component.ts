@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { FetchApiService } from '../../commom/service/api/fetch-api.service';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
+import { DialogService } from '../../commom/dialog.service';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +20,8 @@ export class LoginComponent {
   constructor(
     private fb: FormBuilder,
     private api: FetchApiService,
-    private router: Router
+    private router: Router,
+    private dialog: DialogService
   ) {
     this.loginForm = this.fb.group({
       username: ['', Validators.required],
@@ -30,12 +32,13 @@ export class LoginComponent {
   onLogin() {
     if (this.loginForm.invalid) {
       this.loginForm.markAllAsTouched();
+      this.dialog.warning("Vui lòng nhập đầy đủ thông tin!");
       return;
     }
 
     this.isLoading = true;
     const payload = {
-      userName: this.loginForm.value.username, // ✅ đúng với AuthRequest bên BE
+      username: this.loginForm.value.username,
       password: this.loginForm.value.password
     };
 
@@ -45,25 +48,29 @@ export class LoginComponent {
         console.log('Đăng nhập thành công:', res);
 
         if (res && res.data && res.data.token) {
+
           const { token, username, roles } = res.data;
 
-          // ✅ Lưu token và thông tin người dùng
           localStorage.setItem('token', token);
           localStorage.setItem('username', username);
           localStorage.setItem('roles', JSON.stringify(roles));
 
-          // ✅ Điều hướng không reload
+          this.dialog.success("Đăng nhập thành công!");
+
           this.router.navigate(['/home']);
+
         } else {
-          alert('Phản hồi không hợp lệ từ máy chủ.');
+          this.dialog.warning('Phản hồi không hợp lệ từ máy chủ.');
         }
       },
       error: err => {
         this.isLoading = false;
         console.error('Đăng nhập thất bại:', err);
+
         const message =
           err?.error?.message || 'Sai tên đăng nhập hoặc mật khẩu';
-        alert(message);
+
+        this.dialog.error(message);
       }
     });
   }

@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { FetchApiService } from '../../commom/service/api/fetch-api.service';
+import { DialogService } from '../../commom/dialog.service';
 
 @Component({
   selector: 'app-register',
@@ -20,6 +21,7 @@ export class RegisterComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
+    private dialog: DialogService,
     private api: FetchApiService,
     private router: Router
   ) {
@@ -54,7 +56,7 @@ export class RegisterComponent implements OnInit {
         }
       },
       error: err => {
-        console.error('❌ Lỗi khi tải danh sách vai trò:', err);
+        this.dialog.error(err);
         this.roles = [];
         this.isRoleDisabled = true;
       }
@@ -76,24 +78,24 @@ export class RegisterComponent implements OnInit {
       return;
     }
 
-    const formValue = this.registerForm.value;
-
     // Payload gửi sang backend
     const payload = {
-      userName: formValue.username.trim(),
-      email: formValue.email.trim(),
-      password: formValue.password,
-      roleCode: formValue.roleCode
+      username: this.registerForm.value.username?.trim(),
+      email: this.registerForm.value.email?.trim(),
+      password: this.registerForm.value.password,
+      confirmPassword: this.registerForm.value.confirmPassword,
+      roleCode: this.registerForm.value.roleCode
     };
+
 
     this.api.doRegister(payload).subscribe({
       next: res => {
-        console.log('✅ Đăng ký thành công:', res);
+        this.dialog.success(res);
         alert('🎉 Đăng ký thành công! Hãy đăng nhập.');
         this.router.navigate(['/login']);
       },
       error: err => {
-        console.error('❌ Đăng ký thất bại:', err);
+        this.dialog.error(err);
         this.errorMessage = 'Tài khoản đã tồn tại hoặc dữ liệu không hợp lệ!';
       }
     });

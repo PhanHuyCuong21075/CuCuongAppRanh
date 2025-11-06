@@ -6,6 +6,8 @@ import { PostListComponent } from './post-list/post-list.component';
 import { FriendListComponent } from './friend-list/friend-list.component';
 import { SuggestedFriendComponent } from './suggested-friend/suggested-friend.component';
 import {HeaderComponent} from '../header/header.component';
+import { DialogService } from '../../commom/dialog.service';
+
 
 @Component({
   selector: 'app-home',
@@ -61,7 +63,7 @@ export class HomeComponent implements OnInit {
   }
 
   onPostCreated() {
-    this.loadPosts(); // reload khi con tạo bài xong
+    this.loadPosts();
   }
 
   logout() {

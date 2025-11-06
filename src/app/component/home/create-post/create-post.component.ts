@@ -2,6 +2,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { FetchApiService } from '../../../commom/service/api/fetch-api.service';
+import { DialogService } from '../../../commom/dialog.service';
 
 @Component({
   selector: 'app-create-post',
@@ -14,9 +15,11 @@ export class CreatePostComponent {
   @Output() postCreated = new EventEmitter<void>();
 
   newPostContent = '';
-  isPublic: any = 1; // mặc định công khai
+  isPublic: any = 1;
 
-  constructor(private api: FetchApiService) {}
+  constructor(private api: FetchApiService,
+              private dialog: DialogService,
+              ) {}
 
   createPost() {
     if (!this.newPostContent.trim()) return;
@@ -30,11 +33,11 @@ export class CreatePostComponent {
 
     this.api.createPost(postData).subscribe({
       next: () => {
-        console.log('✅ Đăng bài thành công');
+       this.dialog.success('✅ Đăng bài thành công');
         this.newPostContent = '';
-        this.postCreated.emit(); // báo cho cha reload danh sách
+        this.postCreated.emit();
       },
-      error: (err) => console.error({err: '❌ Lỗi khi đăng bài:'}, err)
+      error: (err) => this.dialog.error(err)
     });
   }
 }
