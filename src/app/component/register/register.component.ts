@@ -90,8 +90,7 @@ export class RegisterComponent implements OnInit {
 
     this.api.doRegister(payload).subscribe({
       next: res => {
-        this.dialog.success(res);
-        alert('🎉 Đăng ký thành công! Hãy đăng nhập.');
+        this.dialog.success('🎉 Đăng ký thành công! Hãy đăng nhập.');
         this.router.navigate(['/login']);
       },
       error: err => {

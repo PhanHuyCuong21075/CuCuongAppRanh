@@ -2,6 +2,9 @@ import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {FetchApiService} from '../../../commom/service/api/fetch-api.service';
 import {EditPostComponent} from '../../edit-post/edit-post.component';
+import { DialogService } from '../../../commom/dialog.service';
+import {DialogCommonComponent} from '../../../commom/dialog/dialog.component';
+
 
 @Component({
   selector: 'app-post-list',
@@ -12,7 +15,8 @@ import {EditPostComponent} from '../../edit-post/edit-post.component';
 })
 export class PostListComponent {
   @Input() posts: any[] = [];
-  constructor(private api: FetchApiService) {}
+  constructor(private api: FetchApiService,
+              private dialog: DialogService,) {}
 
   editPost(post: any) {
     console.log("Chỉnh sửa bài viết:", post);
@@ -20,11 +24,14 @@ export class PostListComponent {
   }
 
   deletePost(post: any) {
-    if (confirm("Bạn có chắc chắn muốn xóa bài viết này?")) {
-      this.api.deletePost(post.id).subscribe(() => {
-        this.posts = this.posts.filter(p => p.id !== post.id);
+    this.dialog.confirm("Bạn có chắc chắn muốn xóa bài viết này?")
+      .subscribe(res => {
+        if (res) {
+          this.api.deletePost(post.id).subscribe(() => {
+            this.posts = this.posts.filter(p => p.id !== post.id);
+          });
+        }
       });
-    }
   }
 
   sharePost(post: any) {
