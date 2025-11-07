@@ -94,4 +94,9 @@ export class FetchApiService {
     return this.http.put(url, postData, { responseType: 'json' });
   }
 
+  sendFriendRequest(receiverId: number): Observable<any> {
+    const url = `${this.baseUrl}${FRIEND_ENDPOINT.SEND_REQUEST}/${receiverId}`;
+
+    return this.http.post(url, {});
+  }
 }

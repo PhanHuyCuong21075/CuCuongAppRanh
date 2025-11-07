@@ -6,6 +6,7 @@ export enum LOGIN_ENDPOINT {
 export enum FRIEND_ENDPOINT {
   GET_FRIENDS = 'friends/list',
   SUGGEST_FRIENDS = 'friends/suggest',
+  SEND_REQUEST = 'friends/request',
 }
 
 

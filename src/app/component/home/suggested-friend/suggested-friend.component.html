@@ -1,9 +1,18 @@
-  <h3>Gợi ý kết bạn</h3>
+<h3>Gợi ý kết bạn</h3>
 
-    <li *ngFor="let s of suggestedFriends">
-      <i class="fa-solid fa-user"></i>
-      <span>{{ s.username }}</span>
-      <button class="add-friend-btn">
-        <i class="fa-solid fa-user-plus"></i> Kết bạn
-      </button>
-    </li>
+<ul> <li *ngFor="let s of suggestedFriends">
+  <i class="fa-solid fa-user"></i>
+  <span>{{ s.username }}</span>
+
+  <button
+    class="add-friend-btn"
+    (click)="onAddFriend(s)"
+    [disabled]="s.isLoading">
+
+    <i *ngIf="!s.isLoading" class="fa-solid fa-user-plus"></i>
+    <i *ngIf="s.isLoading" class="fa-solid fa-spinner fa-spin"></i>
+
+    {{ s.isLoading ? 'Đang gửi...' : 'Kết bạn' }}
+  </button>
+</li>
+</ul>

@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import {FetchApiService} from '../../../commom/service/api/fetch-api.service';
 import {EditPostComponent} from '../edit-post/edit-post.component';
 import { DialogService } from '../../../commom/dialog.service';
-import {DialogCommonComponent} from '../../../commom/dialog/dialog.component';
 
 
 @Component({
