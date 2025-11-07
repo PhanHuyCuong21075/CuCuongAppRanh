@@ -12,6 +12,14 @@
         <div class="post-info">
           <p class="author">{{ post.author }}</p>
           <p class="post-time">{{ post.time }}</p>
+          <span *ngIf="post.isPublic; else privateIcon" class="privacy-icon" title="Công khai">
+            <i class="fa-solid fa-globe"></i>
+          </span>
+          <ng-template #privateIcon>
+            <span class="private-icon" title="Riêng tư">
+              <i class="fa-solid fa-lock"></i>
+            </span>
+          </ng-template>
         </div>
       </div>
 

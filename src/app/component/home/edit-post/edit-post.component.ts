@@ -1,7 +1,10 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import {FetchApiService} from '../../commom/service/api/fetch-api.service';
+import {Component, Input, Output, EventEmitter} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {FormsModule} from '@angular/forms';
+import {FetchApiService} from '../../../commom/service/api/fetch-api.service';
+import {DialogCommonComponent} from '../../../commom/dialog/dialog.component';
+import {DialogService} from '../../../commom/dialog.service';
+
 
 @Component({
   selector: 'app-edit-post',
@@ -11,20 +14,24 @@ import {FetchApiService} from '../../commom/service/api/fetch-api.service';
   styleUrls: ['./edit-post.component.css']
 })
 export class EditPostComponent {
-  @Input() post: any; // bài viết cần chỉnh sửa
-  @Output() updated = new EventEmitter<any>(); // sự kiện thông báo đã update
+  @Input() post: any;
+  @Output() updated = new EventEmitter<any>();
 
   editedContent: string = '';
   editedImageUrl: string = '';
-
+  editedIsPublic: number = 1;
   showModal: boolean = false;
 
-  constructor(private postService: FetchApiService) {}
+  constructor(private postService: FetchApiService,
+              private dialog: DialogService,
+  ) {
+  }
 
   open(post: any) {
     this.post = post;
     this.editedContent = post.content;
     this.editedImageUrl = post.imageUrl || '';
+    this.editedIsPublic = post.isPublic
     this.showModal = true;
   }
 
@@ -34,24 +41,25 @@ export class EditPostComponent {
 
   save() {
     if (!this.editedContent.trim()) {
-      alert('Nội dung bài viết không được để trống!');
+      this.dialog.warning('Nội dung bài viết không được để trống!');
       return;
     }
 
     const updatedPost = {
       ...this.post,
       content: this.editedContent,
-      imageUrl: this.editedImageUrl
+      imageUrl: this.editedImageUrl,
+      isPublic: this.editedIsPublic
     };
 
     this.postService.updatePost(updatedPost.id, updatedPost).subscribe({
       next: () => {
-        alert('Cập nhật bài viết thành công!');
+        this.dialog.success('Cập nhật bài viết thành công!');
         this.updated.emit(updatedPost);
         this.close();
       },
       error: ({err}: { err: any }) => {
-        console.error({err: 'Lỗi khi cập nhật bài viết'}, err);
+        this.dialog.error('Lỗi khi cập nhật bài viết');
         alert('Cập nhật bài viết thất bại!');
       }
     });

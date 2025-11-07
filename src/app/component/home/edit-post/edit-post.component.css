@@ -1,0 +1,131 @@
+/* Nền mờ phía sau */
+.modal-backdrop {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+  opacity: 1;
+  transition: opacity 0.2s ease;
+}
+
+.modal {
+  background: #fff;
+  padding: 24px;
+  border-radius: 10px;
+  width: 450px;
+  max-width: 90%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+
+.modal textarea,
+.modal input[type="text"] {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #dcdcdc;
+  border-radius: 8px;
+  font-size: 15px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.modal textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.modal textarea:focus,
+.modal input[type="text"]:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 3px rgba(0,123,255,0.15);
+}
+
+.modal h3 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+  color: #333;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.modal-actions button {
+  padding: 9px 18px;
+  cursor: pointer;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.modal-actions button:not(:last-child) {
+  background: #f0f0f0;
+  color: #555;
+  border: 1px solid #dcdcdc;
+}
+
+.modal-actions button:not(:last-child):hover {
+  background: #e0e0e0;
+}
+
+.modal-actions button:last-child {
+  background: #007bff;
+  color: #fff;
+}
+
+.modal-actions button:last-child:hover {
+  background: #0056b3;
+}
+.privacy-selector {
+  margin-top: 15px;
+  padding: 10px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  border: 1px solid #eee;
+}
+
+.privacy-selector p {
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #333;
+}
+
+.privacy-option {
+  margin-bottom: 5px;
+}
+
+.privacy-option label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  font-size: 0.95rem;
+}
+
+.privacy-option input[type="radio"] {
+  width: 16px;
+  height: 16px;
+  margin: 0;
+}
+
+.privacy-option i {
+  color: #555;
+  width: 16px;
+  text-align: center;
+}

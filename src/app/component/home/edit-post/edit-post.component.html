@@ -1,0 +1,26 @@
+<div class="modal-backdrop" *ngIf="showModal">
+  <div class="modal">
+    <h3>Chỉnh sửa bài viết</h3>
+
+    <textarea [(ngModel)]="editedContent" placeholder="Nội dung bài viết"></textarea>
+    <input type="text" [(ngModel)]="editedImageUrl" placeholder="Đường dẫn ảnh (tùy chọn)"/>
+
+    <div class="privacy-option">
+      <label>
+        <input type="radio" [(ngModel)]="editedIsPublic" [value]="1" name="privacy">
+        <i class="fa-solid fa-globe"></i> Cong khai
+      </label>
+    </div>
+
+    <div class = "privacy-option">
+      <label>
+        <input type="radio" [(ngModel)]="editedIsPublic" [value]="0" name="privacy" />
+        <i class="fa-solid fa-lock"></i> Riêng tư
+      </label>
+    </div>
+    <div class="modal-actions">
+      <button (click)="close()">Hủy</button>
+      <button (click)="save()">Lưu</button>
+    </div>
+  </div>
+</div>
