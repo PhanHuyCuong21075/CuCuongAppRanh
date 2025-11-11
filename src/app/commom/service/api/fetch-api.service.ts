@@ -73,6 +73,11 @@ export class FetchApiService {
     return this.http.get(url, { responseType: 'json' });
   }
 
+  getPendingRequestFriends(username: string): Observable<any> {
+    const url = `${this.baseUrl}${FRIEND_ENDPOINT.PENDING_REQUEST}/${username}`;
+    return this.http.get(url, { responseType: 'json' });
+  }
+
   createPost(params: any): Observable<any> {
     const url = `${this.baseUrl}${POST_ENDPOINT.CREATE}`;
     return this.http.post(url, params, {responseType: 'json'});

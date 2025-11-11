@@ -1,0 +1,94 @@
+/* suggested-friend.component.css */
+
+/* Khung tổng */
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Mỗi item */
+li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  margin-bottom: 8px;
+  background-color: #f8f8f8;
+  border-radius: 8px;
+  transition: background 0.2s;
+}
+
+li:hover {
+  background-color: #e2e2e2;
+}
+
+/* Icon user */
+li i.fa-user {
+  margin-right: 8px;
+  color: #555;
+  font-size: 18px;
+}
+
+/* Tên user */
+span {
+  flex-grow: 1;
+  font-weight: 500;
+  color: #333;
+}
+
+/* Các button */
+button {
+  padding: 4px 10px;
+  margin-left: 4px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.2s;
+}
+
+/* Kết bạn */
+.add-friend-btn {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.add-friend-btn:hover {
+  background-color: #45a049;
+}
+
+/* Huỷ lời mời */
+button[type="cancel"], button:has(.cancel-btn) {
+  background-color: #f44336;
+  color: white;
+}
+
+button:hover {
+  opacity: 0.9;
+}
+
+/* Chấp nhận */
+button.accept-btn {
+  background-color: #2196F3;
+  color: white;
+}
+
+button.accept-btn:hover {
+  background-color: #1976D2;
+}
+
+/* Từ chối */
+button.reject-btn {
+  background-color: #ff9800;
+  color: white;
+}
+
+button.reject-btn:hover {
+  background-color: #fb8c00;
+}
+
+/* Spinner */
+.fa-spinner {
+  margin-right: 4px;
+}

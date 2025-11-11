@@ -2,6 +2,17 @@
   <ul>
     <li *ngFor="let f of friends">
       <i class="fa-solid fa-user"></i>
-      {{ f.friendName || f.username }}
+      {{f.username }}
+
+      <button
+        class="remove-friend-btn"
+        (click)="onRemoveFriend(f)"
+        [disabled]="f.isLoading">
+
+        <i *ngIf="f.isLoading" class="fa-solid fa-spinner fa-spin"></i>
+
+        {{ f.isLoading ? 'Đã huỷ kết bạn với ...' : 'Huỷ Kết bạn' }}
+      </button>
+
     </li>
   </ul>
