@@ -100,7 +100,13 @@ export class FetchApiService {
   }
 
   sendFriendRequest(receiverId: number): Observable<any> {
-    const url = `${this.baseUrl}${FRIEND_ENDPOINT.SEND_REQUEST}/${receiverId}`;
+    const url = `${this.baseUrl}${FRIEND_ENDPOINT.PROCESS_REQUEST}/${receiverId}`;
+
+    return this.http.post(url, {});
+  }
+
+  rejectFriendRequest(receiverId: number): Observable<any>  {
+    const url = `${this.baseUrl}${FRIEND_ENDPOINT.REJECT_REQUEST}/${receiverId}`;
 
     return this.http.post(url, {});
   }

@@ -75,11 +75,10 @@ export class SuggestedFriendComponent {
    * 4. Từ chối lời mời (type: 'RECEIVED')
    */
   rejectRequest(friend: any) {
-    this.apiService.sendFriendRequest(friend.id).subscribe({
+    this.apiService.rejectFriendRequest(friend.id).subscribe({
       next: () => {
         this.dialog.success(`Đã từ chối lời mời từ: ${friend.username}`);
-        // (XÓA) this.suggestedFriends = this.suggestedFriends.filter(f => f.id !== friend.id);
-        this.requestHandled.emit(); // (GIỮ NGUYÊN) Báo cho cha biết
+        this.requestHandled.emit();
       },
       error: err => this.dialog.error('Từ chối lời mời thất bại')
     });
