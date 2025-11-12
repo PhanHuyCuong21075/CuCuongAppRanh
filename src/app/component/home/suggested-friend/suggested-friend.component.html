@@ -13,8 +13,8 @@
     </button>
 
     <!-- Nếu là pending request -->
-    <button *ngIf="s.type === 'SENT'" (click)="cancelRequest(s)">Huỷ lời mời</button>
-    <button *ngIf="s.type === 'RECEIVED'" (click)="acceptRequest(s)">Chấp nhận</button>
-    <button *ngIf="s.type === 'RECEIVED'" (click)="rejectRequest(s)">Từ chối</button>
+    <button *ngIf="s.type === 'SENT'" class="cancel-btn" (click)="cancelRequest(s)">Huỷ lời mời</button>
+    <button *ngIf="s.type === 'RECEIVED'" class="accept-btn" (click)="acceptRequest(s)">Chấp nhận</button>
+    <button *ngIf="s.type === 'RECEIVED'" class="reject-btn" (click)="rejectRequest(s)">Từ chối</button>
   </li>
 </ul>

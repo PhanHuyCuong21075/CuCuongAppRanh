@@ -6,7 +6,11 @@ import {Component} from '@angular/core';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent {
-  username = localStorage.getItem('username');
+
+  // ✅ Dùng getter
+  public get username(): string | null {
+    return localStorage.getItem('username');
+  }
 
   logout() {
     localStorage.clear();
