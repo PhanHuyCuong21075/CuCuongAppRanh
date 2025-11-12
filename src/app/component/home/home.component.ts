@@ -6,8 +6,8 @@ import {PostListComponent} from './post-list/post-list.component';
 import {FriendListComponent} from './friend-list/friend-list.component';
 import {SuggestedFriendComponent} from './suggested-friend/suggested-friend.component';
 import {HeaderComponent} from '../header/header.component';
-import {DialogService} from '../../commom/dialog.service';
-
+// Thêm import này ở đầu file
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -28,24 +28,25 @@ export class HomeComponent implements OnInit {
   username = '';
   friends: any[] = [];
   posts: any[] = [];
-  suggestedFriends: any[] = [];
-  pendingRequestFriends: any [] = [];
+
+  public friendSuggestionList: any[] = [];
 
   constructor(private api: FetchApiService) {
+  }
+
+  handleRequestAccepted() {
+    this.loadAllFriendSuggestions();
+    this.loadFriends();
   }
 
   ngOnInit(): void {
     this.username = localStorage.getItem('username') || '';
     if (this.username) {
       this.loadFriends();
-      this.loadSuggestedFriends();
-      this.loadPendingRequestFriends();
       this.loadPosts();
-    }
-  }
 
-  get allFriendsSuggestions() {
-    return [...this.suggestedFriends, ...this.pendingRequestFriends];
+      this.loadAllFriendSuggestions();
+    }
   }
 
   loadFriends() {
@@ -62,41 +63,60 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  loadSuggestedFriends() {
-    this.api.getSuggestedFriends(this.username).subscribe({
-      next: res => {
-        this.suggestedFriends = res.data || res
-        this.mergeSuggestedWithPending()
+  // --- HÀM MỚI (THAY THẾ 3 HÀM CŨ) ---
+  /**
+   */
+  loadAllFriendSuggestions() {
+    const suggested$ = this.api.getSuggestedFriends(this.username);
+    const pending$ = this.api.getPendingRequestFriends(this.username);
+
+    // forkJoin: Đợi cả 2 API cùng trả về kết quả
+    forkJoin([suggested$, pending$]).subscribe({
+      next: ([suggestedRes, pendingRes]) => {
+        const suggestedData = suggestedRes.data || suggestedRes;
+        const pendingData = pendingRes.data || pendingRes;
+
+        // Gọi hàm gộp logic mới
+        this.buildDisplayList(suggestedData, pendingData);
       },
       error: err => console.error({err: err})
     });
   }
 
-  loadPendingRequestFriends() {
-    this.api.getPendingRequestFriends(this.username).subscribe({
-      next: res => {
-        this.pendingRequestFriends = res.data || res;
-        this.mergeSuggestedWithPending()
-      },
-      error: err => console.error({err: err})
-    });
-  }
-
-  mergeSuggestedWithPending() {
-    if (!this.suggestedFriends.length || !this.pendingRequestFriends.length) {
-      return;
-    }
+  /**
+   * HÀM MỚI (Logic gộp đúng)
+   * Gộp 2 danh sách, xử lý type, và loại bỏ trùng lặp.
+   */
+  private buildDisplayList(suggested: any[], pending: any[]) {
+    // 1. Tạo Map các request đang chờ
+    // (Key: username, Value: type (SENT, RECEIVED...))
     const pendingMap = new Map<string, string>();
-
-    this.pendingRequestFriends.forEach(p => {
+    pending.forEach(p => {
       pendingMap.set(p.user.username, p.type);
     });
-    this.suggestedFriends = this.suggestedFriends.map(s => ({
-      ...s,
-      type: pendingMap.get(s.username) || "NONE"
+
+    // 2. Lặp qua danh sách GỢI Ý, gán 'type' cho họ
+    const suggestedWithTypes = suggested.map(user => ({
+      ...user,
+      type: pendingMap.get(user.username) || 'NONE'
     }));
+
+    // 3. (Bước quan trọng bị thiếu ở code cũ)
+    // Tìm những người CHỈ CÓ TRONG PENDING mà KHÔNG CÓ TRONG SUGGESTED
+    const suggestedUsernames = new Set(suggested.map(s => s.username));
+
+    const pendingOnly = pending
+      .filter(p => !suggestedUsernames.has(p.user.username))
+      .map(p => ({
+        ...p.user,
+        type: p.type   // Gán type
+      }));
+
+    // 4. Gộp 2 danh sách lại
+    this.friendSuggestionList = [...suggestedWithTypes, ...pendingOnly];
   }
 
+  // --- CÁC HÀM KHÁC GIỮ NGUYÊN ---
   onPostCreated() {
     this.loadPosts();
   }

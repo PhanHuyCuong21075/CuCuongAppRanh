@@ -1,15 +1,23 @@
 <app-header></app-header>
-<div class="home">
-  <div class="sidebar-left">
-    <app-friend-list [friends]="friends"></app-friend-list>
-  </div>
 
-  <div class="feed">
-    <app-create-post (postCreated)="onPostCreated()"></app-create-post>
-    <app-post-list [posts]="posts"></app-post-list>
-  </div>
+<div class="home">
+
+  <div class="sidebar-left">
+    <app-friend-list
+      [friends]="friends"
+      (listChanged)="loadFriends();loadAllFriendSuggestions()">
+    </app-friend-list>
+  </div> <div class="feed">
+  <app-create-post (postCreated)="onPostCreated()"></app-create-post>
+  <app-post-list [posts]="posts"></app-post-list>
+</div>
 
   <div class="sidebar-right">
-    <app-suggested-friend [suggestedFriends]="allFriendsSuggestions"></app-suggested-friend>
+    <app-suggested-friend
+      [suggestedFriends]="friendSuggestionList"
+      (listChanged)="loadAllFriendSuggestions()"
+      (requestHandled)="handleRequestAccepted()">
+    </app-suggested-friend>
   </div>
+
 </div>

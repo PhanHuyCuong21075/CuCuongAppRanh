@@ -12,7 +12,12 @@ import {FetchApiService} from '../../../commom/service/api/fetch-api.service';
 })
 export class FriendListComponent {
   @Input() friends: any[] = [];
-  @Output() requestSent = new EventEmitter<number>();
+
+  /** (SỬA)
+   * Đổi tên Output cho đúng ý nghĩa:
+   * Báo cho component cha (home) biết rằng danh sách cần được load lại.
+   */
+  @Output() listChanged = new EventEmitter<void>();
 
 
   constructor(private dialog: DialogService,
@@ -22,19 +27,23 @@ export class FriendListComponent {
 
   onRemoveFriend(friend: any) {
     friend.isLoading = true;
+    // (FIX) Giả sử API huỷ kết bạn cũng là sendFriendRequest(id)
     this.apiService.sendFriendRequest(friend.id).subscribe({
       next: () => {
-        this.dialog.success(`Đã huỷ ket bạn voi: ${friend.username}`);
-        this.requestSent.emit(friend.id);
+        this.dialog.success(`Đã huỷ kết bạn với: ${friend.username}`);
+
+        /** (SỬA)
+         * Thay vì emit 'requestSent', chúng ta emit 'listChanged'
+         * để báo cho 'home.component' load lại danh sách.
+         */
+        this.listChanged.emit();
+
+        // Không cần 'isLoading = false' vì component sẽ được load lại
       },
       error: (err) => {
-        const errorMessage = err.error && err.error.errorDesc
-          ? err.error.errorDesc
-          : 'Có lỗi xảy ra, vui lòng thử lại.';
-
+        const errorMessage = err.error?.errorDesc || 'Có lỗi xảy ra, vui lòng thử lại.';
         this.dialog.error(errorMessage);
-
-        friend.isLoading = false;
+        friend.isLoading = false; // Trả lại trạng thái nếu lỗi
       }
     })
   }

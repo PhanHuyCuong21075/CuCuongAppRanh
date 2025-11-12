@@ -1,20 +1,19 @@
 <h3>Gợi ý kết bạn</h3>
 
-<ul>
-  <li *ngFor="let s of suggestedFriends">
-    <i class="fa-solid fa-user"></i>
-    <span>{{ s.user ? s.user.username : s.username }}</span>
+<li *ngFor="let s of suggestedFriends">
+  <i class="fa-solid fa-user"></i>
+  <span>{{ s.username }}</span>
 
-    <!-- Nếu là friend suggestion chưa gửi -->
-    <button *ngIf="!s.type" class="add-friend-btn" (click)="onAddFriend(s)" [disabled]="s.isLoading">
+  <div class="btn-group">
+    <button *ngIf="s.type === 'NONE'" class="add-friend-btn" (click)="onAddFriend(s)" [disabled]="s.isLoading">
       <i *ngIf="!s.isLoading" class="fa-solid fa-user-plus"></i>
       <i *ngIf="s.isLoading" class="fa-solid fa-spinner fa-spin"></i>
       {{ s.isLoading ? 'Đang gửi...' : 'Kết bạn' }}
     </button>
 
-    <!-- Nếu là pending request -->
     <button *ngIf="s.type === 'SENT'" class="cancel-btn" (click)="cancelRequest(s)">Huỷ lời mời</button>
     <button *ngIf="s.type === 'RECEIVED'" class="accept-btn" (click)="acceptRequest(s)">Chấp nhận</button>
     <button *ngIf="s.type === 'RECEIVED'" class="reject-btn" (click)="rejectRequest(s)">Từ chối</button>
-  </li>
-</ul>
+  </div>
+
+</li>

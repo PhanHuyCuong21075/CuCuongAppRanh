@@ -1,18 +1,17 @@
 <h3>Bạn bè</h3>
-  <ul>
-    <li *ngFor="let f of friends">
-      <i class="fa-solid fa-user"></i>
-      {{f.username }}
+  <li *ngFor="let f of friends">
+    <i class="fa-solid fa-user"></i>
 
-      <button
-        class="remove-friend-btn"
-        (click)="onRemoveFriend(f)"
-        [disabled]="f.isLoading">
+    <span>{{f.username }}</span>
 
-        <i *ngIf="f.isLoading" class="fa-solid fa-spinner fa-spin"></i>
+    <button
+      class="remove-friend-btn"
+      (click)="onRemoveFriend(f)"
+      [disabled]="f.isLoading">
 
-        {{ f.isLoading ? 'Đã huỷ kết bạn với ...' : 'Huỷ Kết bạn' }}
-      </button>
+      <i *ngIf="f.isLoading" class="fa-solid fa-spinner fa-spin"></i>
 
-    </li>
-  </ul>
+      {{ f.isLoading ? 'Đã huỷ kết bạn với ...' : 'Huỷ Kết bạn' }}
+    </button>
+
+  </li>
