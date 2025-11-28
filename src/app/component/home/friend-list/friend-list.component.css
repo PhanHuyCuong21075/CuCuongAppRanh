@@ -97,12 +97,3 @@ button.remove-friend-btn:hover:not(:disabled) {
 button.remove-friend-btn:active:not(:disabled) {
   transform: translateY(0);
 }
-
-h3 {
-  /* Tùy chỉnh: Giảm margin bottom hoặc thêm margin top */
-  margin-top: 20px; /* Có thể thêm nếu bạn muốn khoảng cách với phía trên */
-  margin-bottom: 15px; /* Điều chỉnh lại khoảng cách với danh sách */
-  font-size: 20px; /* Tùy chỉnh kích thước */
-  color: #333; /* Tùy chỉnh màu chữ */
-  padding-left: 12px; /* Nếu bạn muốn text của h3 thẳng hàng với li */
-}
